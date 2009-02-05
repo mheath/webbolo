@@ -1,0 +1,3 @@
+#!/bin/sh
+APPDIR=`dirname $0`;
+java  -Xmx256M -cp "$APPDIR/src:$APPDIR/bin:/data/home/mheath/apps/gwt-linux-1.5.3/gwt-user.jar:/data/home/mheath/apps/gwt-linux-1.5.3/gwt-dev-linux.jar" com.google.gwt.dev.GWTShell -out "$APPDIR/www" "$@" webbolo.Main/Main.html;
