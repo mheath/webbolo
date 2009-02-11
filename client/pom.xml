@@ -136,7 +136,7 @@
 									<classifier>${platform}-libs</classifier>
 									<type>zip</type>
 									<overWrite>false</overWrite>
-									<outputDirectory>${settings.localRepository}/com/google/gwt/gwt-dev/${gwtVersion}</outputDirectory>
+									<!--<outputDirectory>${settings.localRepository}/com/google/gwt/gwt-dev/${gwtVersion}</outputDirectory>-->
 								</artifactItem>
 							</artifactItems>
 						</configuration>
