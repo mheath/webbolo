@@ -14,7 +14,20 @@
     </properties>
 	
 	<modules>
+		<module>core</module>
 		<module>client</module>
 	</modules>
 	<inceptionYear>2009</inceptionYear>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>5.7</version>
+			<scope>test</scope>
+			<classifier>jdk15</classifier>
+		</dependency>
+	</dependencies>
+
 </project>
