@@ -14,8 +14,22 @@ public class MapSegment {
 
 	private final Set<Item> items = new HashSet<Item>();
 
-	public MapSegment(GameWorld gameWorld, int width, int height) {
-		this.tiles = new Tile[width][height];
+	public static class MapSegmentBuilder {
+
+		private final Tile[][] tiles;
+
+		public MapSegmentBuilder(int width, int height) {
+			tiles = new Tile[width][height];
+		}
+
+		public void setTile(Tile tile, int x, int y) {
+			tiles[x][y] = tile;
+		}
+
+	}
+
+	public MapSegment(GameWorld gameWorld, MapSegmentBuilder builder) {
+		this.tiles = builder.tiles.clone();
 		this.gameWorld = gameWorld;
 	}
 

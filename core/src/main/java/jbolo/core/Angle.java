@@ -10,14 +10,17 @@ import java.io.ObjectInputStream;
  * 
  * @author Mike Heath
  */
-public class Angle implements Serializable {
+public final class Angle implements Serializable {
 
 	private static final long serialVersionUID = 1;
 
 	public static final int BRADIANS_MAX = 256;
+	public static final int DEGREES_MAX = 360;
 
 	public static final double RADIAN_TO_BRADIANS = (double) BRADIANS_MAX / (Math.PI * 2);
+	public static final double DEGREES_TO_BRADIANS = (double) BRADIANS_MAX / DEGREES_MAX;
 	public static final double BRADIANS_TO_RADIANS = (Math.PI * 2) / (double) BRADIANS_MAX;
+	public static final double BRADIANS_TO_DEGREES = (double) DEGREES_MAX / BRADIANS_MAX;
 
 	private static float[] sinTable = new float[BRADIANS_MAX];
 	private static float[] cosTable = new float[BRADIANS_MAX];
@@ -32,12 +35,20 @@ public class Angle implements Serializable {
 	// The angle in byte radians (bradians)
 	private transient int bradians;
 
-	public Angle(int bradians) {
-		setBradians(bradians);
+	public static Angle createAngle(int bradians) {
+		return createAngleFromRadians(bradians);
 	}
 
-	public Angle(double radians) {
-		this(radiansToBradians(radians));
+	public static Angle createAngleFromRadians(double radians) {
+		return new Angle(radiansToBradians(radians));
+	}
+
+	public static Angle createAngleFromDegrees(int degrees) {
+		return new Angle (degreesToBradians(degrees));
+	}
+
+	private Angle(int bradians) {
+		setBradians(bradians);
 	}
 
 	public int getBradians() {
@@ -68,9 +79,30 @@ public class Angle implements Serializable {
 		return bradians * BRADIANS_TO_RADIANS;
 	}
 
+	public static int degreesToBradians(double degrees) {
+		return (int) (degrees * DEGREES_TO_BRADIANS);
+	}
+
+	public static double bradiansToDegrees(int bradians) {
+		return bradians * DEGREES_TO_BRADIANS;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Angle angle = (Angle) o;
+		return bradians == angle.bradians;
+	}
+
+	@Override
+	public int hashCode() {
+		return bradians;
+	}
+
 	private void writeObject(ObjectOutputStream s) throws IOException {
 		s.defaultWriteObject();
-
 		s.writeByte((byte)bradians);
 	}
 

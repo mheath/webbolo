@@ -33,4 +33,33 @@ public class PointTest {
 		Assert.assertEquals(c.angleTo(b).getBradians(), DiscreteDirection.NORTH_EAST.getBradians());
 	}
 
+	@Test
+	public void distance() {
+		Point a = new Point(0, 3);
+		Point b = new Point(4, 0);
+		Assert.assertEquals(a.distance(b), 5, 0.01);
+	}
+
+	@Test
+	public void move() {
+		final Point a = new Point(1, 1);
+		Point b;
+
+		b = a.move(DiscreteDirection.NORTH, 1.0f);
+		Assert.assertEquals(b.x, 1.0, 0.01);
+		Assert.assertEquals(b.y, 0.0, 0.01);
+
+		b = a.move(DiscreteDirection.WEST, 1.0f);
+		Assert.assertEquals(b.x, 0.0, 0.01);
+		Assert.assertEquals(b.y, 1.0, 0.01);
+
+		b = a.move(DiscreteDirection.EAST, 1.0f);
+		Assert.assertEquals(b.x, 2.0, 0.01);
+		Assert.assertEquals(b.y, 1.0, 0.01);
+
+		b = a.move(DiscreteDirection.SOUTH, 1.0f);
+		Assert.assertEquals(b.x, 1.0, 0.01);
+		Assert.assertEquals(b.y, 2.0, 0.01);
+	}
+
 }

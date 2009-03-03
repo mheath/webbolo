@@ -16,12 +16,38 @@ public class Point {
 		return angleTo(point.x, point.y);
 	}
 
-	private Angle angleTo(float x, float y) {
+	public Angle angleTo(float x, float y) {
 		// Reverse direction of y because origin is at upper left
 		float dY = y - this.y;
 		float dX = this.x - x;
+		// The angle is "upside down" because we changed the sign of dY, so rotate the angle 180 degrees
 		double radians = Math.atan2(dY, dX) + Math.PI;
-		return new Angle(radians);
+		return Angle.createAngleFromRadians(radians);
+	}
+
+	public float distance(Point point) {
+		return distance(point.x, point.y);
+	}
+
+	public float distance(float x, float y) {
+		float dX = x - this.x;
+		float dY = y - this.y;
+		return (float)Math.sqrt(dX * dX + dY * dY);
+	}
+
+	public Point move(DiscreteDirection direction, float distance) {
+		return move(Angle.bradiansToRadians(direction.getBradians()), distance);
+	}
+
+	public Point move(Angle angle, float distance) {
+		return move(angle.getRadians(), distance);
+	}
+
+	public Point move(double radians, float distance) {
+		double dX = distance * Math.cos(radians);
+		double dY = distance * -Math.sin(radians);
+
+		return new Point(x + (float)dX, y + (float)dY);
 	}
 
 	@Override

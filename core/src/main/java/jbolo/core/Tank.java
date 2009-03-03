@@ -5,8 +5,8 @@ package jbolo.core;
  */
 public class Tank extends MovableItem {
 
-	public Tank(MapSegment mapSegment, Point position, float velocity, int bradians) {
-		super(mapSegment, position, velocity, bradians);
+	public Tank(int id, MapSegment mapSegment, Point position, float velocity, int bradians) {
+		super(id, mapSegment, position, velocity, bradians);
 	}
 
 }

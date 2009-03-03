@@ -5,16 +5,17 @@ package jbolo.core;
  */
 public class MovableItem extends AbstractItem {
 
+	// Velocity in pixels / ms
 	private float velocity;
 
 	private Angle angle;
 
 	private long lastTime;
 
-	public MovableItem(MapSegment mapSegment, Point position, float velocity, int bradians) {
-		super(mapSegment, position);
+	public MovableItem(int id, MapSegment mapSegment, Point position, float velocity, int bradians) {
+		super(id, mapSegment, position);
 		this.velocity = velocity;
-		this.angle = new Angle(bradians);
+		this.angle = Angle.createAngle(bradians);
 	}
 
 	public float getVelocity() {
@@ -29,12 +30,7 @@ public class MovableItem extends AbstractItem {
 	public void update(long time) {
 		long t = time - lastTime;
 		float v = getVelocity() * t;
-		Point delta = calculatePositionDelta(v);
-		setPosition(new Point(getPosition().x + delta.x, getPosition().y + delta.y));
-	}
-
-	protected Point calculatePositionDelta(float adjustedVelocity) {
-		return new Point(getAngle().cos() * adjustedVelocity, getAngle().sin() * adjustedVelocity);
+		setPosition(getPosition().move(angle, v));
 	}
 
 }

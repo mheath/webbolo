@@ -5,15 +5,23 @@ package jbolo.core;
  */
 public abstract class AbstractItem implements Item {
 
+	private final long id;
+
 	private MapSegment mapSegment;
 
 	private Point position;
 
 	private boolean visible = true;
 
-	protected AbstractItem(MapSegment mapSegment, Point position) {
+	protected AbstractItem(long id, MapSegment mapSegment, Point position) {
+		this.id = id;
 		this.mapSegment = mapSegment;
 		this.position = position;
+	}
+
+	@Override
+	public long getId() {
+		return id;
 	}
 
 	@Override

@@ -5,10 +5,10 @@ package jbolo.core;
  *
  * @author Mike Heath
  */
-public interface Tile {
+public interface Tile extends Item {
 
-	MapSegment getMapSegment();
+	public static final int WIDTH = 16;
 
-	Point getPosition();
+	
 
 }
